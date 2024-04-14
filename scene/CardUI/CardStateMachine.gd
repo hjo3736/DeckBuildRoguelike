@@ -1,4 +1,5 @@
 class_name CardStateMachine
+
 extends Node2D
 
 @export var initialState : CardState
@@ -20,20 +21,31 @@ func init(card : CardUI) -> void:
 func on_input(event: InputEvent) -> void:
 	if currentState:
 		currentState.on_input(event)
+		
 func on_gui_input(event: InputEvent) -> void:
 	if currentState:
 		currentState.on_gui_input(event)
+		
 func on_mouse_entered() -> void:
 	if currentState:
 		currentState.on_mouse_entered()
+		
 func on_mouse_exited() -> void:
 	if currentState:
 		currentState.on_mouse_exited()
+		
 func on_transition_requested(from: CardState, to : CardState.State) -> void:
 	if from != currentState:
 		return
+		
 	var newState: CardState = states[to]
+	
 	if not newState:
 		return
+		
+	if currentState:
+		currentState.exit()
+		
 	newState.enter()
 	currentState = newState
+	

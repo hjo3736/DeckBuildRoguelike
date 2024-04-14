@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://lr2tvchfvs5x"]
+
+[ext_resource type="Script" path="res://Scene/CardTargetSelector/CardTargetSelector.gd" id="1_c2lfi"]
+[ext_resource type="PackedScene" uid="uid://dyjkgxcwt66j6" path="res://Scene/CardTargetSelector/CardArc.tscn" id="1_qbu65"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jq0mw"]
+size = Vector2(4, 4)
+
+[node name="CardTargetSelector" type="Node2D"]
+script = ExtResource("1_c2lfi")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 4
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_jq0mw")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="CardArc" parent="CanvasLayer" instance=ExtResource("1_qbu65")]
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]

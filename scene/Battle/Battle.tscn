@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://belesdyl2ope4"]
+[gd_scene load_steps=10 format=3 uid="uid://belesdyl2ope4"]
 
-[ext_resource type="Texture2D" uid="uid://cp4iq5fd6j8be" path="res://art/background.png" id="1_78y0u"]
-[ext_resource type="PackedScene" uid="uid://br884bfvf7r1" path="res://scene/CardUI/CardUI.tscn" id="2_baiy3"]
-[ext_resource type="Script" path="res://scene/UI/Hand.gd" id="2_q7q6v"]
+[ext_resource type="Texture2D" uid="uid://cp4iq5fd6j8be" path="res://Art/background.png" id="1_78y0u"]
+[ext_resource type="Texture2D" uid="uid://cgopx2ponr1qi" path="res://Art/tile_0121.png" id="2_1ebf2"]
+[ext_resource type="PackedScene" uid="uid://br884bfvf7r1" path="res://Scene/CardUI/CardUI.tscn" id="2_baiy3"]
+[ext_resource type="Script" path="res://Scene/UI/Hand.gd" id="2_q7q6v"]
+[ext_resource type="Resource" uid="uid://dcb444w6lro8y" path="res://Character/Warrior/Warrior Attack.tres" id="5_d16fn"]
+[ext_resource type="Resource" uid="uid://xbrc4f32v7oq" path="res://Character/Warrior/Warrior Defend.tres" id="6_jgu7b"]
+[ext_resource type="PackedScene" uid="uid://lr2tvchfvs5x" path="res://Scene/CardTargetSelector/CardTargetSelector.tscn" id="7_ge6ch"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ko3tv"]
-size = Vector2(256, 100)
+size = Vector2(256, 104)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_isirh"]
 
 [node name="Battle" type="Node2D"]
 metadata/_edit_lock_ = true
@@ -20,8 +26,21 @@ metadata/_edit_lock_ = true
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CardDropArea"]
-position = Vector2(128, 50)
+position = Vector2(128, 52)
 shape = SubResource("RectangleShape2D_ko3tv")
+debug_color = Color(0, 0.6, 0.701961, 0.160784)
+
+[node name="Enemy" type="Area2D" parent="."]
+position = Vector2(198, 82)
+collision_layer = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
+texture = ExtResource("2_1ebf2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+shape = SubResource("RectangleShape2D_isirh")
+
+[node name="CardTargetSelector" parent="." instance=ExtResource("7_ge6ch")]
 
 [node name="BattleUI" type="CanvasLayer" parent="." groups=["UILayer"]]
 
@@ -42,9 +61,12 @@ script = ExtResource("2_q7q6v")
 
 [node name="CardUI" parent="BattleUI/Hand" instance=ExtResource("2_baiy3")]
 layout_mode = 2
+card = ExtResource("5_d16fn")
 
 [node name="CardUI2" parent="BattleUI/Hand" instance=ExtResource("2_baiy3")]
 layout_mode = 2
+card = ExtResource("5_d16fn")
 
 [node name="CardUI3" parent="BattleUI/Hand" instance=ExtResource("2_baiy3")]
 layout_mode = 2
+card = ExtResource("6_jgu7b")

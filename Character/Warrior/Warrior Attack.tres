@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Card" load_steps=2 format=3 uid="uid://dcb444w6lro8y"]
+
+[ext_resource type="Script" path="res://Custom Resources/Card.gd" id="1_txybo"]
+
+[resource]
+script = ExtResource("1_txybo")
+id = "Warrior Attack"
+type = 0
+target = 1
+cost = 0
+tooltipText = ""

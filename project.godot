@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="test1"
-run/main_scene="res://scene/Battle/Battle.tscn"
+run/main_scene="res://Scene/Battle/Battle.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.png"
+
+[autoload]
+
+Events="*res://Global/Events.gd"
 
 [display]
 
@@ -44,6 +48,7 @@ right_mouse={
 
 2d_physics/layer_1="CardTargetSelector"
 2d_physics/layer_2="CardDropArea"
+2d_physics/layer_3="Enemies"
 
 [rendering]
 

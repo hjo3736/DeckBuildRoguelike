@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://boypmsk4lai2y"]
 
-[ext_resource type="FontFile" uid="uid://dskmdk146n4rq" path="res://art/pixel_rpg.ttf" id="1_wljka"]
+[ext_resource type="FontFile" uid="uid://dskmdk146n4rq" path="res://Art/pixel_rpg.ttf" id="1_wljka"]
 
 [resource]
 default_font = ExtResource("1_wljka")

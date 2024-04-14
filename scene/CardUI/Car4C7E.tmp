@@ -1,0 +1,85 @@
+[gd_scene load_steps=10 format=3 uid="uid://br884bfvf7r1"]
+
+[ext_resource type="Theme" uid="uid://boypmsk4lai2y" path="res://main_theme.tres" id="1_0fwgd"]
+[ext_resource type="Script" path="res://Scene/CardUI/CardUI.gd" id="2_ao7bk"]
+[ext_resource type="Script" path="res://Scene/CardUI/CardStateMachine.gd" id="3_liuia"]
+[ext_resource type="Script" path="res://Scene/CardUI/CardState/CardBaseState.gd" id="4_7t5pq"]
+[ext_resource type="Script" path="res://Scene/CardUI/CardState/CardClickedState.gd" id="5_r75x1"]
+[ext_resource type="Script" path="res://Scene/CardUI/CardState/CardDraggingState.gd" id="6_s6wje"]
+[ext_resource type="Script" path="res://Scene/CardUI/CardState/CardReleasedState.gd" id="7_gesdg"]
+[ext_resource type="Script" path="res://Scene/CardUI/CardState/CardAimingState.gd" id="8_2m5yh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7wdty"]
+size = Vector2(25, 30)
+
+[node name="CardUI" type="Control"]
+custom_minimum_size = Vector2(25, 30)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -231.0
+offset_bottom = -114.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_0fwgd")
+script = ExtResource("2_ao7bk")
+
+[node name="Color" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.486275, 0.176471, 0.694118, 1)
+
+[node name="State" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "State"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DropPointDetector" type="Area2D" parent="."]
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DropPointDetector"]
+position = Vector2(12.5, 15)
+shape = SubResource("RectangleShape2D_7wdty")
+
+[node name="CardStateMachine" type="Node2D" parent="."]
+script = ExtResource("3_liuia")
+initialState = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":ExtResource("4_7t5pq"),"state":0)
+
+
+[node name="CardBaseState" type="Node" parent="CardStateMachine"]
+script = ExtResource("4_7t5pq")
+
+[node name="CardClickedState" type="Node" parent="CardStateMachine"]
+script = ExtResource("5_r75x1")
+state = 1
+
+[node name="CardDraggingState" type="Node" parent="CardStateMachine"]
+script = ExtResource("6_s6wje")
+state = 2
+
+[node name="CardReleasedState" type="Node" parent="CardStateMachine"]
+script = ExtResource("7_gesdg")
+state = 4
+
+[node name="CardAimingState" type="Node" parent="CardStateMachine"]
+script = ExtResource("8_2m5yh")
+state = 3
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="area_entered" from="DropPointDetector" to="." method="_on_drop_point_detector_area_entered"]
+[connection signal="area_exited" from="DropPointDetector" to="." method="_on_drop_point_detector_area_exited"]

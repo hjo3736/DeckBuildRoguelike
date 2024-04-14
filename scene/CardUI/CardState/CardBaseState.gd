@@ -3,6 +3,9 @@ extends CardState
 func enter():
 	if not is_node_ready():
 		await cardUI.ready
+	
+	if cardUI.tween and cardUI.tween.is_running():
+		cardUI.tween.kill()
 		
 	cardUI.reparent_request.emit(cardUI)
 	cardUI.color.color = Color.DARK_GREEN
