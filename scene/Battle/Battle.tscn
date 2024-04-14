@@ -1,17 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://belesdyl2ope4"]
+[gd_scene load_steps=12 format=3 uid="uid://belesdyl2ope4"]
 
 [ext_resource type="Texture2D" uid="uid://cp4iq5fd6j8be" path="res://Art/background.png" id="1_78y0u"]
-[ext_resource type="Texture2D" uid="uid://cgopx2ponr1qi" path="res://Art/tile_0121.png" id="2_1ebf2"]
 [ext_resource type="PackedScene" uid="uid://br884bfvf7r1" path="res://Scene/CardUI/CardUI.tscn" id="2_baiy3"]
 [ext_resource type="Script" path="res://Scene/UI/Hand.gd" id="2_q7q6v"]
+[ext_resource type="PackedScene" uid="uid://xcqfxwk30eux" path="res://Scene/Player/Player.tscn" id="2_xi3kf"]
+[ext_resource type="Resource" uid="uid://d261d26l3gykl" path="res://Character/Warrior/Warrior.tres" id="3_2nage"]
+[ext_resource type="PackedScene" uid="uid://cie38wvp61b13" path="res://Scene/Enemy/Enemy.tscn" id="4_iwog0"]
 [ext_resource type="Resource" uid="uid://dcb444w6lro8y" path="res://Character/Warrior/Cards/Warrior Attack.tres" id="5_d16fn"]
+[ext_resource type="Resource" uid="uid://bsduavnav1ty0" path="res://Enemies/Ghost/Ghost.tres" id="5_my3af"]
 [ext_resource type="Resource" uid="uid://xbrc4f32v7oq" path="res://Character/Warrior/Cards/Warrior Defend.tres" id="6_jgu7b"]
 [ext_resource type="PackedScene" uid="uid://lr2tvchfvs5x" path="res://Scene/CardTargetSelector/CardTargetSelector.tscn" id="7_ge6ch"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ko3tv"]
 size = Vector2(256, 104)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_isirh"]
 
 [node name="Battle" type="Node2D"]
 metadata/_edit_lock_ = true
@@ -30,15 +31,13 @@ position = Vector2(128, 52)
 shape = SubResource("RectangleShape2D_ko3tv")
 debug_color = Color(0, 0.6, 0.701961, 0.160784)
 
-[node name="Enemy" type="Area2D" parent="."]
-position = Vector2(198, 82)
-collision_layer = 4
+[node name="Player" parent="." instance=ExtResource("2_xi3kf")]
+position = Vector2(42, 82)
+stats = ExtResource("3_2nage")
 
-[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
-texture = ExtResource("2_1ebf2")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
-shape = SubResource("RectangleShape2D_isirh")
+[node name="Enemy" parent="." instance=ExtResource("4_iwog0")]
+position = Vector2(203, 82)
+stats = ExtResource("5_my3af")
 
 [node name="CardTargetSelector" parent="." instance=ExtResource("7_ge6ch")]
 
