@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cgopx2ponr1qi" path="res://Art/tile_0121.png" id="2_1ebf2"]
 [ext_resource type="PackedScene" uid="uid://br884bfvf7r1" path="res://Scene/CardUI/CardUI.tscn" id="2_baiy3"]
 [ext_resource type="Script" path="res://Scene/UI/Hand.gd" id="2_q7q6v"]
-[ext_resource type="Resource" uid="uid://dcb444w6lro8y" path="res://Character/Warrior/Warrior Attack.tres" id="5_d16fn"]
-[ext_resource type="Resource" uid="uid://xbrc4f32v7oq" path="res://Character/Warrior/Warrior Defend.tres" id="6_jgu7b"]
+[ext_resource type="Resource" uid="uid://dcb444w6lro8y" path="res://Character/Warrior/Cards/Warrior Attack.tres" id="5_d16fn"]
+[ext_resource type="Resource" uid="uid://xbrc4f32v7oq" path="res://Character/Warrior/Cards/Warrior Defend.tres" id="6_jgu7b"]
 [ext_resource type="PackedScene" uid="uid://lr2tvchfvs5x" path="res://Scene/CardTargetSelector/CardTargetSelector.tscn" id="7_ge6ch"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ko3tv"]
