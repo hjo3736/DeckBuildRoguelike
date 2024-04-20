@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://boypmsk4lai2y"]
+
+[ext_resource type="StyleBox" uid="uid://mw515e0fsn4c" path="res://Theme/BorderIdle.tres" id="1_6bwuk"]
+[ext_resource type="FontFile" uid="uid://dskmdk146n4rq" path="res://Art/pixel_rpg.ttf" id="2_ysvb5"]
+
+[resource]
+default_font = ExtResource("2_ysvb5")
+default_font_size = 6
+Panel/styles/panel = ExtResource("1_6bwuk")

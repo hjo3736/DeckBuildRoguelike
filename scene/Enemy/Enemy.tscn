@@ -1,9 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://cie38wvp61b13"]
+[gd_scene load_steps=8 format=3 uid="uid://cie38wvp61b13"]
 
 [ext_resource type="Texture2D" uid="uid://cgopx2ponr1qi" path="res://Art/tile_0121.png" id="1_3qsu0"]
 [ext_resource type="Script" path="res://Scene/Enemy/Enemy.gd" id="1_cchiq"]
 [ext_resource type="Texture2D" uid="uid://bb3rcs5nqntir" path="res://Art/arrow.png" id="3_5qbgx"]
 [ext_resource type="PackedScene" uid="uid://yy7nh4g6ak47" path="res://Scene/UI/StatsUI.tscn" id="4_8471v"]
+
+[sub_resource type="Animation" id="Animation_7cbkd"]
+resource_name = "Pulse"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.7, 0.7), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w4mj8"]
+_data = {
+"Pulse": SubResource("Animation_7cbkd")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_isirh"]
 
@@ -17,9 +39,16 @@ texture = ExtResource("1_3qsu0")
 
 [node name="Arrow" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(15, 0)
-rotation = -1.5708
+position = Vector2(0, -12)
+rotation = 3.14159
+scale = Vector2(0.82, 0.82)
 texture = ExtResource("3_5qbgx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Arrow"]
+libraries = {
+"": SubResource("AnimationLibrary_w4mj8")
+}
+speed_scale = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_isirh")
@@ -27,3 +56,6 @@ shape = SubResource("RectangleShape2D_isirh")
 [node name="StatsUI" parent="." instance=ExtResource("4_8471v")]
 offset_top = 6.0
 offset_bottom = 22.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

@@ -4,17 +4,19 @@ const DRAG_MINIMUN_THRESHHOLD := 0.05
 
 var minDragTimeElapsed := false
 
-func enter():
+func enter() -> void:
 	var UILayer = get_tree().get_first_node_in_group("UILayer")
 	if UILayer:
 		cardUI.reparent(UILayer)
 	
-	cardUI.color.color = Color.NAVY_BLUE
-	cardUI.state.text = "Dragging"
+	Events.card_drag_started.emit(cardUI)
 	
 	minDragTimeElapsed = false
 	var threshhold_timer = get_tree().create_timer(DRAG_MINIMUN_THRESHHOLD, false)
 	threshhold_timer.timeout.connect(func(): minDragTimeElapsed = true)
+
+func exit() -> void:
+	Events.card_drag_ended.emit(cardUI)
 
 func on_input(event: InputEvent) -> void:
 	var isMouseMotion = event is InputEventMouseMotion

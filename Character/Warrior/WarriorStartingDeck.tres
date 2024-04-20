@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="CardPile" load_steps=4 format=3 uid="uid://dvhdlsoa6b5i1"]
 
-[ext_resource type="Resource" uid="uid://dcb444w6lro8y" path="res://Character/Warrior/Cards/Warrior Attack.tres" id="1_7fg7l"]
+[ext_resource type="Resource" uid="uid://dcb444w6lro8y" path="res://Character/Warrior/Cards/WarriorAttack.tres" id="1_7fg7l"]
 [ext_resource type="Script" path="res://Custom Resources/CardPile.gd" id="1_d6mi1"]
-[ext_resource type="Resource" uid="uid://xbrc4f32v7oq" path="res://Character/Warrior/Cards/Warrior Defend.tres" id="2_orbch"]
+[ext_resource type="Resource" uid="uid://xbrc4f32v7oq" path="res://Character/Warrior/Cards/WarriorDefend.tres" id="2_orbch"]
 
 [resource]
 script = ExtResource("1_d6mi1")

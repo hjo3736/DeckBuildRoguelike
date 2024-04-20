@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://wxrehujo76k5"]
+
+[ext_resource type="Theme" uid="uid://boypmsk4lai2y" path="res://Theme/main_theme.tres" id="1_k2yeh"]
+[ext_resource type="Script" path="res://Scene/UI/ManaUI.gd" id="2_2t4n1"]
+[ext_resource type="Texture2D" uid="uid://mamsftyka6kd" path="res://Art/ForTest/ManaImage.png" id="2_ntpw4"]
+
+[node name="ManaUI" type="Panel"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -24.0
+offset_right = 25.0
+offset_bottom = -4.0
+grow_vertical = 0
+theme = ExtResource("1_k2yeh")
+script = ExtResource("2_2t4n1")
+
+[node name="BaseImage" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ntpw4")
+expand_mode = 1
+
+[node name="ManaLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "3/3"
+horizontal_alignment = 1
+vertical_alignment = 1

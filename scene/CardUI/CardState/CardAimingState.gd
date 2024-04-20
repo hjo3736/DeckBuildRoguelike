@@ -3,14 +3,12 @@ extends CardState
 const MOUSE_Y_SNAPBACK_THRESHHOLD := 138
 
 func enter() -> void:
-	cardUI.color.color = Color.WEB_PURPLE
-	cardUI.state.text = "Aiming"
 	cardUI.targets.clear()
 	
 	var offset := Vector2(cardUI.parent.size.x / 2, -cardUI.parent.size.y / 2)
 	offset.x -= cardUI.size.x / 2
 	cardUI.animate_to_position(cardUI.parent.global_position + offset, 0.2)
-	cardUI.drop_point_detector.monitoring = false
+	cardUI.dropPointDetector.monitoring = false
 	
 	Events.card_aim_started.emit(cardUI)
 	

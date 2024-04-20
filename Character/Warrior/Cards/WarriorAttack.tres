@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://dcb444w6lro8y"]
+
+[ext_resource type="Texture2D" uid="uid://ck1t4hdip6xrl" path="res://Art/tile_0119.png" id="1_sgqj2"]
+[ext_resource type="Script" path="res://Character/Warrior/Cards/WarriotAttack.gd" id="1_yo1ld"]
+
+[resource]
+script = ExtResource("1_yo1ld")
+id = "Warrior Attack"
+type = 0
+target = 1
+cost = 1
+icon = ExtResource("1_sgqj2")
+tooltipText = ""
