@@ -8,6 +8,7 @@ func enter() -> void:
 	cardUI.border.set("theme_override_styles/panel", cardUI.borderIdle)
 	
 	if not cardUI.targets.is_empty():
+		Events.tooltip_hide_requested.emit()
 		played = true
 		cardUI.play()
 		

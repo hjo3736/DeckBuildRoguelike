@@ -1,21 +1,28 @@
-[gd_scene load_steps=13 format=3 uid="uid://belesdyl2ope4"]
+[gd_scene load_steps=18 format=3 uid="uid://belesdyl2ope4"]
 
 [ext_resource type="Texture2D" uid="uid://cp4iq5fd6j8be" path="res://Art/background.png" id="1_78y0u"]
-[ext_resource type="PackedScene" uid="uid://br884bfvf7r1" path="res://Scene/CardUI/CardUI.tscn" id="2_baiy3"]
+[ext_resource type="Script" path="res://Scene/Battle/Battle.gd" id="1_kwtvc"]
 [ext_resource type="Script" path="res://Scene/UI/Hand.gd" id="2_q7q6v"]
 [ext_resource type="PackedScene" uid="uid://xcqfxwk30eux" path="res://Scene/Player/Player.tscn" id="2_xi3kf"]
 [ext_resource type="Resource" uid="uid://d261d26l3gykl" path="res://Character/Warrior/Warrior.tres" id="3_2nage"]
 [ext_resource type="PackedScene" uid="uid://cie38wvp61b13" path="res://Scene/Enemy/Enemy.tscn" id="4_iwog0"]
-[ext_resource type="Resource" uid="uid://dcb444w6lro8y" path="res://Character/Warrior/Cards/WarriorAttack.tres" id="5_d16fn"]
 [ext_resource type="Resource" uid="uid://bsduavnav1ty0" path="res://Enemies/Ghost/Ghost.tres" id="5_my3af"]
-[ext_resource type="Resource" uid="uid://xbrc4f32v7oq" path="res://Character/Warrior/Cards/WarriorDefend.tres" id="6_jgu7b"]
 [ext_resource type="PackedScene" uid="uid://lr2tvchfvs5x" path="res://Scene/CardTargetSelector/CardTargetSelector.tscn" id="7_ge6ch"]
+[ext_resource type="Script" path="res://Scene/UI/BattleUI.gd" id="7_sclcy"]
+[ext_resource type="Script" path="res://Scene/Player/PlayerHandler.gd" id="8_ls7jc"]
 [ext_resource type="PackedScene" uid="uid://wxrehujo76k5" path="res://Scene/UI/ManaUI.tscn" id="11_s2v1u"]
+[ext_resource type="PackedScene" uid="uid://1r5v5llubwm7" path="res://Scene/UI/TooltipUI.tscn" id="12_cuo07"]
+[ext_resource type="Theme" uid="uid://boypmsk4lai2y" path="res://Theme/main_theme.tres" id="13_wwjy8"]
+[ext_resource type="Texture2D" uid="uid://bm036mem1lmrp" path="res://Art/ForTest/BaseBut.png" id="14_pdcsp"]
+[ext_resource type="Texture2D" uid="uid://dmglr3ba16pwh" path="res://Art/ForTest/BaseButHover.png" id="15_jiaw3"]
+[ext_resource type="Texture2D" uid="uid://bv8ujo8pvb7js" path="res://Art/ForTest/BaseButClick.png" id="15_rebho"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ko3tv"]
 size = Vector2(256, 104)
 
 [node name="Battle" type="Node2D"]
+script = ExtResource("1_kwtvc")
+charStat = ExtResource("3_2nage")
 metadata/_edit_lock_ = true
 
 [node name="BackGround" type="Sprite2D" parent="."]
@@ -42,7 +49,12 @@ stats = ExtResource("5_my3af")
 
 [node name="CardTargetSelector" parent="." instance=ExtResource("7_ge6ch")]
 
+[node name="PlayerHandler" type="Node" parent="." node_paths=PackedStringArray("hand")]
+script = ExtResource("8_ls7jc")
+hand = NodePath("../BattleUI/Hand")
+
 [node name="BattleUI" type="CanvasLayer" parent="." groups=["UILayer"]]
+script = ExtResource("7_sclcy")
 
 [node name="Hand" type="HBoxContainer" parent="BattleUI"]
 anchors_preset = 7
@@ -59,20 +71,42 @@ size_flags_horizontal = 4
 alignment = 1
 script = ExtResource("2_q7q6v")
 
-[node name="CardUI" parent="BattleUI/Hand" instance=ExtResource("2_baiy3")]
-layout_mode = 2
-card = ExtResource("5_d16fn")
-charStat = ExtResource("3_2nage")
-
-[node name="CardUI2" parent="BattleUI/Hand" instance=ExtResource("2_baiy3")]
-layout_mode = 2
-card = ExtResource("5_d16fn")
-charStat = ExtResource("3_2nage")
-
-[node name="CardUI3" parent="BattleUI/Hand" instance=ExtResource("2_baiy3")]
-layout_mode = 2
-card = ExtResource("6_jgu7b")
-charStat = ExtResource("3_2nage")
-
 [node name="ManaUI" parent="BattleUI" instance=ExtResource("11_s2v1u")]
 charStat = ExtResource("3_2nage")
+
+[node name="TooltipUI" parent="BattleUI" instance=ExtResource("12_cuo07")]
+offset_top = 5.0
+offset_bottom = 41.0
+
+[node name="EndTurnButton" type="TextureButton" parent="BattleUI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -55.0
+offset_top = -27.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("13_wwjy8")
+disabled = true
+texture_normal = ExtResource("14_pdcsp")
+texture_pressed = ExtResource("15_rebho")
+texture_hover = ExtResource("15_jiaw3")
+
+[node name="Label" type="Label" parent="BattleUI/EndTurnButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -14.0
+offset_top = -4.0
+offset_right = 15.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "End Turn"
+horizontal_alignment = 1
+vertical_alignment = 1

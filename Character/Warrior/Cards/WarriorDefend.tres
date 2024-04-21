@@ -10,4 +10,4 @@ type = 1
 target = 0
 cost = 1
 icon = ExtResource("1_5fktq")
-tooltipText = ""
+tooltipText = "[center]Gain 5 [color=\"fffe91\"]block[/color].[/center]"
