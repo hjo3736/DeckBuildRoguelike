@@ -4,23 +4,51 @@ extends Area2D
 
 const ARROW_OFFSET := 5
 
-@export var stats: Stats: set = setEnemyStats
+@export var stats: EnemyStats: set = setEnemyStats
 
 @onready var sprite2D: Sprite2D = $Sprite2D
 @onready var arrow: Sprite2D = $Arrow
 @onready var statsUI: StatsUI = $StatsUI as StatsUI
 @onready var animationPlayer: AnimationPlayer = $Arrow/AnimationPlayer as AnimationPlayer
 
-func setEnemyStats(value: Stats) -> void:
+var enemyActionPicker: EnemyActionPicker
+var currentAction: EnemyAction: set = setCurrentAction
+
+func setCurrentAction(value: EnemyAction) -> void:
+	currentAction = value
+
+func setEnemyStats(value: EnemyStats) -> void:
 	stats = value.create_instance()
 	
 	if not stats.stats_changed.is_connected(updateStats):
 		stats.stats_changed.connect(updateStats)
+		stats.stats_changed.connect(updateAction)
 	
 	updateEnemy()
 
+func setupAI() -> void:
+	if enemyActionPicker:
+		enemyActionPicker.queue_free()
+	
+	var newActionPicker: EnemyActionPicker = stats.ai.instantiate()
+	add_child(newActionPicker)
+	enemyActionPicker = newActionPicker
+	enemyActionPicker.enemy = self
+
 func updateStats() -> void:
 	statsUI.updateStats(stats)
+
+func updateAction() -> void:
+	if not enemyActionPicker:
+		return
+	
+	if not currentAction:
+		currentAction = enemyActionPicker.getAction()
+		return
+	
+	var newConditionalAction := enemyActionPicker.get_first_conditional_action()
+	if newConditionalAction and currentAction != newConditionalAction:
+			currentAction = newConditionalAction
 
 func updateEnemy() -> void:
 	if not stats is Stats:
@@ -31,7 +59,17 @@ func updateEnemy() -> void:
 		
 	sprite2D.texture = stats.art
 	arrow.position = Vector2.UP * (sprite2D.texture.get_size().y / 2 + ARROW_OFFSET)
+	setupAI()
 	updateStats()
+
+func doTurn() -> void:
+	
+	stats.block = 0
+	
+	if not currentAction:
+		return
+	
+	currentAction.performAction()
 
 func takeDamage(damage: int) -> void:
 	if stats.health <= 0:

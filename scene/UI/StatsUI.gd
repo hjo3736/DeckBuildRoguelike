@@ -8,7 +8,6 @@ extends HBoxContainer
 @onready var healthLabel: Label = %HealthLabel
 
 func updateStats(stats: Stats) -> void:
-	print(stats.block)
 	blockLabel.text = str(stats.block)
 	healthLabel.text = str(stats.health)
 	

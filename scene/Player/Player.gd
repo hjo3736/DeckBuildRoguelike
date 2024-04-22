@@ -8,7 +8,7 @@ extends Node2D
 @onready var statsUI: StatsUI = $StatsUI as StatsUI
 
 func setCharacterStats(value: CharacterStats) -> void:
-	stats = value.create_instance()
+	stats = value
 	
 	if not stats.stats_changed.is_connected(updateStats):
 		stats.stats_changed.connect(updateStats)
@@ -36,4 +36,5 @@ func takeDamage(damage: int) -> void:
 	stats.takeDamage(damage)
 	
 	if stats.health <= 0:
+		Events.player_died.emit()
 		queue_free()

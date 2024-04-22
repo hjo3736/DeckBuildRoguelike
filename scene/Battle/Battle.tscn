@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://belesdyl2ope4"]
+[gd_scene load_steps=19 format=3 uid="uid://belesdyl2ope4"]
 
 [ext_resource type="Texture2D" uid="uid://cp4iq5fd6j8be" path="res://Art/background.png" id="1_78y0u"]
 [ext_resource type="Script" path="res://Scene/Battle/Battle.gd" id="1_kwtvc"]
@@ -6,7 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://xcqfxwk30eux" path="res://Scene/Player/Player.tscn" id="2_xi3kf"]
 [ext_resource type="Resource" uid="uid://d261d26l3gykl" path="res://Character/Warrior/Warrior.tres" id="3_2nage"]
 [ext_resource type="PackedScene" uid="uid://cie38wvp61b13" path="res://Scene/Enemy/Enemy.tscn" id="4_iwog0"]
-[ext_resource type="Resource" uid="uid://bsduavnav1ty0" path="res://Enemies/Ghost/Ghost.tres" id="5_my3af"]
+[ext_resource type="Script" path="res://Scene/Enemy/EnemyHandler.gd" id="6_ch1mt"]
+[ext_resource type="Resource" uid="uid://b407hdf4qlvc7" path="res://Enemies/Ghost/GhostEnemy.tres" id="6_w6fij"]
 [ext_resource type="PackedScene" uid="uid://lr2tvchfvs5x" path="res://Scene/CardTargetSelector/CardTargetSelector.tscn" id="7_ge6ch"]
 [ext_resource type="Script" path="res://Scene/UI/BattleUI.gd" id="7_sclcy"]
 [ext_resource type="Script" path="res://Scene/Player/PlayerHandler.gd" id="8_ls7jc"]
@@ -43,15 +44,18 @@ debug_color = Color(0, 0.6, 0.701961, 0.160784)
 position = Vector2(42, 82)
 stats = ExtResource("3_2nage")
 
-[node name="Enemy" parent="." instance=ExtResource("4_iwog0")]
-position = Vector2(203, 82)
-stats = ExtResource("5_my3af")
-
-[node name="CardTargetSelector" parent="." instance=ExtResource("7_ge6ch")]
-
 [node name="PlayerHandler" type="Node" parent="." node_paths=PackedStringArray("hand")]
 script = ExtResource("8_ls7jc")
 hand = NodePath("../BattleUI/Hand")
+
+[node name="EnemyHandler" type="Node2D" parent="."]
+script = ExtResource("6_ch1mt")
+
+[node name="Enemy" parent="EnemyHandler" instance=ExtResource("4_iwog0")]
+position = Vector2(203, 82)
+stats = ExtResource("6_w6fij")
+
+[node name="CardTargetSelector" parent="." instance=ExtResource("7_ge6ch")]
 
 [node name="BattleUI" type="CanvasLayer" parent="." groups=["UILayer"]]
 script = ExtResource("7_sclcy")
