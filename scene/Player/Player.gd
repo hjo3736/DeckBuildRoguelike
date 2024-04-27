@@ -2,6 +2,8 @@ class_name Player
 
 extends Node2D
 
+const WHITE_SPRITE_MATERIAL := preload("res://Art/white_sprite_material.tres")
+
 @export var stats: CharacterStats: set = setCharacterStats
 
 @onready var sprite2D: Sprite2D = $Sprite2D
@@ -33,8 +35,18 @@ func takeDamage(damage: int) -> void:
 	if stats.health <= 0:
 		return
 	
-	stats.takeDamage(damage)
+	sprite2D.material = WHITE_SPRITE_MATERIAL
 	
-	if stats.health <= 0:
-		Events.player_died.emit()
-		queue_free()
+	var tween := create_tween()
+	tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
+	tween.tween_callback(stats.takeDamage.bind(damage))
+	tween.tween_interval(0.17)
+	
+	tween.finished.connect(
+		func():
+			sprite2D.material = null
+			
+			if stats.health <= 0:
+				Events.player_died.emit()
+				queue_free()
+	)

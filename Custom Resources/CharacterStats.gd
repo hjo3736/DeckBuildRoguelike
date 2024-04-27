@@ -18,6 +18,13 @@ func setMana(value: int) -> void:
 func resetMana() -> void:
 	self.mana = maxMana
 
+func takeDamage(damage: int) -> void:
+	var initialHealth := health
+	super.takeDamage(damage)
+	
+	if initialHealth > health:
+		Events.player_hit.emit()
+
 func canPlayCard(card: Card) -> bool:
 	return mana >= card.cost
 

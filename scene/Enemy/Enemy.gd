@@ -3,12 +3,14 @@ class_name Enemy
 extends Area2D
 
 const ARROW_OFFSET := 5
+const WHITE_SPRITE_MATERIAL := preload("res://Art/white_sprite_material.tres")
 
 @export var stats: EnemyStats: set = setEnemyStats
 
 @onready var sprite2D: Sprite2D = $Sprite2D
 @onready var arrow: Sprite2D = $Arrow
 @onready var statsUI: StatsUI = $StatsUI as StatsUI
+@onready var intentUI: IntentUI = $IntentUI as IntentUI
 @onready var animationPlayer: AnimationPlayer = $Arrow/AnimationPlayer as AnimationPlayer
 
 var enemyActionPicker: EnemyActionPicker
@@ -16,6 +18,8 @@ var currentAction: EnemyAction: set = setCurrentAction
 
 func setCurrentAction(value: EnemyAction) -> void:
 	currentAction = value
+	if currentAction:
+		intentUI.updateIntent(currentAction.intent)
 
 func setEnemyStats(value: EnemyStats) -> void:
 	stats = value.create_instance()
@@ -58,7 +62,7 @@ func updateEnemy() -> void:
 		await ready
 		
 	sprite2D.texture = stats.art
-	arrow.position = Vector2.UP * (sprite2D.texture.get_size().y / 2 + ARROW_OFFSET)
+	arrow.position = Vector2.UP * (sprite2D.texture.get_size().y / 2 + intentUI.size.y + ARROW_OFFSET)
 	setupAI()
 	updateStats()
 
@@ -75,10 +79,21 @@ func takeDamage(damage: int) -> void:
 	if stats.health <= 0:
 		return
 	
-	stats.takeDamage(damage)
+	sprite2D.material = WHITE_SPRITE_MATERIAL
 	
-	if stats.health <= 0:
-		queue_free()
+	var tween := create_tween()
+	tween.tween_callback(Shaker.shake.bind(self, 16, 0.15))
+	tween.tween_callback(stats.takeDamage.bind(damage))
+	tween.tween_interval(0.17)
+	
+	tween.finished.connect(
+		func():
+			sprite2D.material = null
+			
+			if stats.health <= 0:
+				queue_free()
+	)
+
 
 func _on_area_entered(area):
 	arrow.show()

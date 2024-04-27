@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://belesdyl2ope4"]
+[gd_scene load_steps=20 format=3 uid="uid://belesdyl2ope4"]
 
 [ext_resource type="Texture2D" uid="uid://cp4iq5fd6j8be" path="res://Art/background.png" id="1_78y0u"]
 [ext_resource type="Script" path="res://Scene/Battle/Battle.gd" id="1_kwtvc"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://bm036mem1lmrp" path="res://Art/ForTest/BaseBut.png" id="14_pdcsp"]
 [ext_resource type="Texture2D" uid="uid://dmglr3ba16pwh" path="res://Art/ForTest/BaseButHover.png" id="15_jiaw3"]
 [ext_resource type="Texture2D" uid="uid://bv8ujo8pvb7js" path="res://Art/ForTest/BaseButClick.png" id="15_rebho"]
+[ext_resource type="Script" path="res://Scene/UI/RedFlash.gd" id="18_l68uw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ko3tv"]
 size = Vector2(256, 104)
@@ -114,3 +115,19 @@ grow_vertical = 2
 text = "End Turn"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="RedFlash" type="CanvasLayer" parent="."]
+layer = 2
+script = ExtResource("18_l68uw")
+
+[node name="ColorRect" type="ColorRect" parent="RedFlash"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.443137, 0.443137, 0.109804)
+
+[node name="Timer" type="Timer" parent="RedFlash"]
